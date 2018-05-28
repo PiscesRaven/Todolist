@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="note">
+    <input type="button" value="新增" id="btn1">
+
+    <table id="tb1" border="2" width="600">
+        <thead>
+            <td>事件紀錄</td>
+            <td>編輯</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>寫code
+                </td>
+                <td>
+                    <input type="button" value="修改" class="update">
+                    <input type="button" value="刪除" class="use">
+                </td>
+            </tr>
+            <tr>
+                <td>寫code
+                </td>
+                <td>
+                    <input type="button" value="修改" class="update">
+                    <input type="button" value="刪除" class="use">
+                </td>
+            </tr>
+            <tr>
+                <td>寫code
+                </td>
+                <td>
+                    <input type="button" value="修改" class="update">
+                    <input type="button" value="刪除" class="use">
+                </td>
+            </tr>
+            <tr>
+                <td>寫code
+                </td>
+                <td>
+                    <input type="button" value="修改" class="update">
+                    <input type="button" value="刪除" class="use">
+                </td>
+            </tr>
+            <tr>
+                <td>寫code
+                </td>
+                <td>
+                    <input type="button" value="修改" class="update">
+                    <input type="button" value="刪除" class="use">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btn1').on('click', function () {
+            //新增
+
+            var sText = '';
+            sText = $('#note').val();
+            var oTdText = '<td>' + sText + '</td>';
+            var oTdInfo =
+                '<td><span class="update-span"><input type="button" value="修改" class="update"></span><input type="button" value="刪除" class="use"></td>';
+            $('#tb1').append('<tr>' + oTdText + oTdInfo + '</tr>');
+            $('#note').val('');
+
+            //修改
+            $('.update').on('click', function () {
+                $(this).closest('tr').find('td:first').replaceWith('<td><input value="' +
+                    sText + '"></td>');
+
+                var oTdSave =
+                    '<span class="save-span"><input type="button" value="儲存" class="save"></span>';
+                $(this).replaceWith(oTdSave);
+                $('.save').on('click', function () {
+                    sText = $(this).closest('tr').find('td:first > input').val();
+                    $(this).closest('tr').find('td:first').replaceWith('<td>' + sText +
+                        '</td>');
+                    var oTdUpdate =
+                        '<span class="update-span"><input type="button" value="修改" class="update"></span>';
+                    $(this).replaceWith(oTdUpdate);
+                });
+
+            });
+            //刪除
+            $('.use').on('click', function () {
+                $(this).closest('tr').remove();
+                console.log('del');
+            });
+        });
+
+    });
+</script>
